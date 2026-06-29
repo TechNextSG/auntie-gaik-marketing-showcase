@@ -18,7 +18,7 @@ tailwind.config={theme:{extend:{colors:{navy:{'DEFAULT':'#060D2E','light':'#0A16
 /* Research-page compact tweaks */
 .rsec{padding:64px 24px}
 @media(max-width:767px){.rsec{padding:46px 18px}}
-.r-card{background:#fff;border:1px solid rgba(6,13,46,.08);border-radius:12px;padding:22px;transition:transform .35s cubic-bezier(.34,1.4,.64,1),box-shadow .35s ease,border-color .3s ease}
+.r-card{background:#fff;border:1px solid rgba(6,13,46,.08);border-radius:12px;padding:22px;position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.34,1.4,.64,1),box-shadow .35s ease,border-color .3s ease}
 .r-card:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(6,13,46,.12);border-color:rgba(212,175,55,.4)}
 .r-card-d{background:linear-gradient(160deg,#0C1740,#070F30);border:1px solid rgba(212,175,55,.15)}
 .ch-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);transition:background .25s ease,transform .25s ease}
@@ -48,20 +48,42 @@ tailwind.config={theme:{extend:{colors:{navy:{'DEFAULT':'#060D2E','light':'#0A16
   </div>
 </nav>
 
-<!-- HEADER -->
-<header class="relative px-6 pt-36 pb-16" style="background:#060D2E">
-  <div class="max-w-5xl mx-auto text-center relative z-10">
-    <div class="inline-flex items-center gap-3 border border-[rgba(212,175,55,.4)] bg-[rgba(212,175,55,.08)] px-5 py-2 mb-7">
+<!-- HERO (full screen) -->
+<header class="hero-bg relative min-h-screen flex items-center justify-center px-6" style="background:#060D2E">
+  <div class="star-field" id="stars"></div>
+  <div id="hero-inner" class="max-w-4xl mx-auto text-center relative z-10 pt-28 pb-20">
+    <div class="inline-flex items-center gap-3 border border-[rgba(212,175,55,.4)] bg-[rgba(212,175,55,.08)] backdrop-blur-sm px-6 py-2.5 mb-9">
+      <span class="shimmer"><svg viewBox="0 0 24 24" fill="#D4AF37" style="width:13px;height:13px"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg></span>
       <span class="text-[11px] tracking-[.25em] uppercase font-medium" style="color:#D4AF37">Marketing Research · Updated June 2026</span>
+      <span class="shimmer"><svg viewBox="0 0 24 24" fill="#D4AF37" style="width:13px;height:13px"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg></span>
     </div>
-    <h1 class="text-3xl md:text-5xl font-semibold text-white mb-5 michelin-glow" style="font-family:'Playfair Display',serif">
-      Auntie Gaik Lean <em class="gold-anim font-normal">in the Digital Space</em>
+    <p class="text-white/55 text-[11px] tracking-[.3em] uppercase mb-5">A Digital Audit of</p>
+    <h1 class="text-4xl md:text-6xl font-semibold text-white mb-6 michelin-glow leading-[1.1]" style="font-family:'Playfair Display',serif">
+      Auntie Gaik Lean<br><em class="gold-anim font-normal">in the Digital Space</em>
     </h1>
-    <p class="text-white/70 max-w-2xl mx-auto" style="font-family:'Cormorant Garamond',serif;font-size:1.3rem">
-      A snapshot of where the restaurant shows up online today — its reach, reputation, gaps and the opportunities they reveal.
+    <p class="text-white/80 text-xl md:text-2xl italic font-light mb-4" style="font-family:'Cormorant Garamond',serif">
+      Where the restaurant shows up online — reach, reputation, gaps &amp; opportunity.
     </p>
+    <p class="text-white/55 text-[11px] tracking-[.22em] uppercase mb-11">Marketing Research &nbsp;·&nbsp; Curated by TechNext</p>
+    <div class="flex flex-row flex-wrap gap-4 justify-center">
+      <a href="#snapshot" class="btn btn-gold text-xs tracking-[.15em] uppercase px-9 py-4 font-semibold rounded-sm">
+        View the Findings
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <a href="index.html" class="btn btn-ow text-xs tracking-[.15em] uppercase px-9 py-4 rounded-sm">Back to Showcase</a>
+    </div>
+  </div>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40">
+    <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
   </div>
 </header>
+
+<!-- KEYWORD MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="mq">
+    <span>Google Reviews</span><span>TripAdvisor</span><span>Instagram</span><span>Facebook</span><span>MICHELIN Guide</span><span>Tatler</span><span>小红书</span><span>TikTok</span><span>Search Demand</span><span>Trip.com</span><span>Yelp</span><span>Word of Mouth</span>
+  </div>
+</div>
 
 <!-- 1. DIGITAL FOOTPRINT SNAPSHOT -->
 <section id="snapshot" class="rsec" style="background:#FAF6EF">
@@ -83,9 +105,9 @@ tailwind.config={theme:{extend:{colors:{navy:{'DEFAULT':'#060D2E','light':'#0A16
         <p class="text-xs" style="color:#7A7A7F">Old School Eatery page</p>
       </div>
       <div class="r-card reveal-s d3 text-center">
-        <div class="big-stat">4.2<span style="font-size:1.3rem">★</span></div>
-        <p class="text-sm mt-2" style="color:#060D2E;font-weight:600">TripAdvisor rating</p>
-        <p class="text-xs" style="color:#7A7A7F"><span data-count="325" data-suffix="+">0</span> reviews</p>
+        <div class="big-stat" data-count="2224" data-suffix="">0</div>
+        <p class="text-sm mt-2" style="color:#060D2E;font-weight:600">Google reviews</p>
+        <p class="text-xs" style="color:#7A7A7F">4.2★ average</p>
       </div>
       <div class="r-card reveal-s d4 text-center">
         <div class="big-stat" data-count="4" data-suffix="">0</div>
@@ -97,11 +119,64 @@ tailwind.config={theme:{extend:{colors:{navy:{'DEFAULT':'#060D2E','light':'#0A16
   </div>
 </section>
 
-<!-- 2. WHERE THEY LIVE ONLINE -->
+<!-- 2. ONLINE REVIEWS -->
+<section id="reviews" class="rsec" style="background:#FAF6EF">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12 reveal">
+      <p class="svc-eyebrow" style="color:#B8941F">02 · Online Reviews</p>
+      <h2 class="text-2xl md:text-3xl font-semibold mt-2 mb-4" style="font-family:'Playfair Display',serif;color:#060D2E">What Diners Are Saying</h2>
+      <div class="gold-bar mx-auto"></div>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+      <div class="r-card reveal-s d1 text-center">
+        <div class="big-stat">4.2<span style="font-size:1.2rem">★</span></div>
+        <p class="text-sm mt-2 font-semibold" style="color:#060D2E">Google</p>
+        <p class="text-xs" style="color:#7A7A7F"><span data-count="2224" data-suffix="">0</span> reviews</p>
+      </div>
+      <div class="r-card reveal-s d2 text-center">
+        <div class="big-stat">4.2<span style="font-size:1.2rem">★</span></div>
+        <p class="text-sm mt-2 font-semibold" style="color:#060D2E">TripAdvisor</p>
+        <p class="text-xs" style="color:#7A7A7F"><span data-count="326" data-suffix="">0</span> reviews · #93 / 1,937</p>
+      </div>
+      <div class="r-card reveal-s d3 text-center">
+        <div class="big-stat">4.8<span style="font-size:1.2rem">★</span></div>
+        <p class="text-sm mt-2 font-semibold" style="color:#060D2E">Trip.com</p>
+        <p class="text-xs" style="color:#7A7A7F"><span data-count="12" data-suffix="">0</span> reviews</p>
+      </div>
+      <div class="r-card reveal-s d4 text-center">
+        <div class="big-stat" data-count="91" data-suffix="">0</div>
+        <p class="text-sm mt-2 font-semibold" style="color:#060D2E">Yelp photos</p>
+        <p class="text-xs" style="color:#7A7A7F">18 reviews</p>
+      </div>
+    </div>
+    <div class="grid lg:grid-cols-2 gap-8 items-center">
+      <div class="reveal-l panel panel-l">
+        <p class="text-sm font-semibold mb-5" style="color:#060D2E">Review Volume by Platform</p>
+        <div class="bars">
+          <div class="bar"><i style="--h:100%"></i><b style="color:#060D2E">Google</b><small style="color:#5A5A5F">2,224</small></div>
+          <div class="bar"><i style="--h:24%"></i><b style="color:#060D2E">TripAdvisor</b><small style="color:#5A5A5F">326</small></div>
+          <div class="bar"><i style="--h:9%"></i><b style="color:#060D2E">Yelp</b><small style="color:#5A5A5F">18</small></div>
+          <div class="bar"><i style="--h:8%"></i><b style="color:#060D2E">Trip.com</b><small style="color:#5A5A5F">12</small></div>
+        </div>
+        <p class="chart-note" style="color:#060D2E">Bar length indicative · counts at time of research, June 2026</p>
+      </div>
+      <div class="reveal-r">
+        <h3 class="text-xl font-semibold mb-3" style="font-family:'Playfair Display',serif;color:#060D2E">The takeaway</h3>
+        <p class="mb-4" style="color:#4A4A4F">Google is the centre of gravity — <strong>2,224 reviews</strong> at 4.2★ is a powerful base. Diners consistently rate food and service highly, and the restaurant ranks <strong>#2 of 50</strong> "best restaurants in Penang Island" on Wanderlog.</p>
+        <p class="mb-5" style="color:#4A4A4F">The opportunity: a steady review-generation flow to lift 4.2★ toward 4.5★+, and to broaden beyond Google onto the platforms travellers actually plan with.</p>
+        <div>
+          <span class="chip" style="color:#B8941F">"Authentic"</span><span class="chip" style="color:#B8941F">"Made from scratch"</span><span class="chip" style="color:#B8941F">Pie Tee</span><span class="chip" style="color:#B8941F">Gulai Tumis</span><span class="chip" style="color:#B8941F">"Book ahead"</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. WHERE THEY LIVE ONLINE -->
 <section id="channels" class="rsec" style="background:#060D2E">
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-12 reveal">
-      <p class="svc-eyebrow" style="color:#D4AF37">02 · Channel Presence</p>
+      <p class="svc-eyebrow" style="color:#D4AF37">03 · Channel Presence</p>
       <h2 class="text-2xl md:text-3xl font-semibold text-white mt-2 mb-4" style="font-family:'Playfair Display',serif">Where Auntie Gaik Lives Online</h2>
       <div class="gold-bar mx-auto"></div>
     </div>
@@ -131,7 +206,7 @@ tailwind.config={theme:{extend:{colors:{navy:{'DEFAULT':'#060D2E','light':'#0A16
 <section id="finding" class="rsec" style="background:#FAF6EF">
   <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
     <div class="reveal-l">
-      <p class="svc-eyebrow" style="color:#B8941F">03 · The Key Finding</p>
+      <p class="svc-eyebrow" style="color:#B8941F">04 · The Key Finding</p>
       <h2 class="text-2xl md:text-3xl font-semibold mt-2 mb-4" style="font-family:'Playfair Display',serif;color:#060D2E">A World-Class Reputation, a Quiet Digital Voice</h2>
       <div class="gold-bar mb-5"></div>
       <p class="mb-4" style="color:#4A4A4F">Auntie Gaik Lean holds one of Malaysia's most prestigious culinary honours — the country's <strong>first Peranakan Michelin star</strong>, held four years running. Yet its digital reach hasn't kept pace with its fame. Coverage notes the restaurant is <em>"quite unknown in the social media market,"</em> with popularity driven largely by word of mouth.</p>
@@ -155,7 +230,7 @@ tailwind.config={theme:{extend:{colors:{navy:{'DEFAULT':'#060D2E','light':'#0A16
 <section id="landscape" class="rsec" style="background:#060D2E">
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-12 reveal">
-      <p class="svc-eyebrow" style="color:#D4AF37">04 · Competitive Landscape</p>
+      <p class="svc-eyebrow" style="color:#D4AF37">05 · Competitive Landscape</p>
       <h2 class="text-2xl md:text-3xl font-semibold text-white mt-2 mb-4" style="font-family:'Playfair Display',serif">Penang's Michelin-Starred Field</h2>
       <div class="gold-bar mx-auto mb-4"></div>
       <p class="text-white/65 max-w-2xl mx-auto" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem">Among Penang's one-star restaurants, Auntie Gaik Lean stands alone as the Peranakan name — a category of one.</p>
@@ -176,7 +251,7 @@ tailwind.config={theme:{extend:{colors:{navy:{'DEFAULT':'#060D2E','light':'#0A16
 <section id="demand" class="rsec" style="background:#FAF6EF">
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-12 reveal">
-      <p class="svc-eyebrow" style="color:#B8941F">05 · Audience &amp; Demand Signals</p>
+      <p class="svc-eyebrow" style="color:#B8941F">06 · Audience &amp; Demand Signals</p>
       <h2 class="text-2xl md:text-3xl font-semibold mt-2 mb-4" style="font-family:'Playfair Display',serif;color:#060D2E">Who's Searching, and Why It Matters</h2>
       <div class="gold-bar mx-auto"></div>
     </div>
@@ -204,7 +279,7 @@ tailwind.config={theme:{extend:{colors:{navy:{'DEFAULT':'#060D2E','light':'#0A16
 <section id="opportunities" class="rsec" style="background:#060D2E">
   <div class="max-w-5xl mx-auto">
     <div class="text-center mb-12 reveal">
-      <p class="svc-eyebrow" style="color:#D4AF37">06 · What the Research Points To</p>
+      <p class="svc-eyebrow" style="color:#D4AF37">07 · What the Research Points To</p>
       <h2 class="text-2xl md:text-3xl font-semibold text-white mt-2 mb-4" style="font-family:'Playfair Display',serif">The Opportunities</h2>
       <div class="gold-bar mx-auto"></div>
     </div>
