@@ -80,12 +80,12 @@ if(fine && !reduce){
   document.addEventListener('mouseleave',function(){glowOn=false;glow.style.opacity='0';});
   (function loop(){cx+=(gx-cx)*.15;cy+=(gy-cy)*.15;glow.style.left=cx+'px';glow.style.top=cy+'px';requestAnimationFrame(loop);})();
 
-  // ── Card 3D tilt + spotlight (all card types) ──
-  document.querySelectorAll('.pillar-card, .r-card, .vid-card').forEach(function(card){
+  // ── Card 3D tilt + spotlight (every card type) ──
+  document.querySelectorAll('.pillar-card, .r-card, .vid-card, .panel, .ai-card, .icard').forEach(function(card){
     var isVid=card.classList.contains('vid-card');
     var spot=null;
     if(!isVid){spot=document.createElement('div');spot.className='spot';card.insertBefore(spot,card.firstChild);}
-    var amt=isVid?5:8;
+    var amt=card.classList.contains('panel')?4:isVid?5:card.classList.contains('ai-card')?6:8;
     card.addEventListener('mousemove',function(e){
       var r=card.getBoundingClientRect(), px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
       card.style.transform='perspective(850px) rotateY('+((px-.5)*amt).toFixed(2)+'deg) rotateX('+((.5-py)*amt).toFixed(2)+'deg) translateY(-6px)';
