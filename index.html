@@ -32,7 +32,10 @@ p,li,td,th{line-height:1.85}
 .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}.d6{transition-delay:.48s}
 
 .hero-bg{background-color:#060D2E;position:relative}
-.hero-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 50% -5%,rgba(212,175,55,.18) 0%,transparent 65%);pointer-events:none;z-index:1}
+.hero-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 50% -5%,rgba(212,175,55,.18) 0%,transparent 65%);pointer-events:none;z-index:2}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
+.hero-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(6,9,30,.82) 0%,rgba(6,11,40,.55) 42%,rgba(5,9,32,.88) 100%)}
+.hero-overlay::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 45%,transparent 40%,rgba(5,8,26,.55) 100%)}
 .dot-bg{background-image:radial-gradient(circle,rgba(212,175,55,.10) 1px,transparent 1px);background-size:32px 32px}
 
 /* Star field */
@@ -180,8 +183,11 @@ p,li,td,th{line-height:1.85}
 
 <!-- HERO -->
 <section class="hero-bg relative min-h-screen flex items-center justify-center">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="img/hero-poster.jpg">
+    <source src="img/hero.mp4" type="video/mp4"/>
+  </video>
+  <div class="hero-overlay"></div>
   <div class="star-field" id="stars"></div>
-  <div class="absolute inset-0 dot-bg opacity-40" style="z-index:0"></div>
   <div id="hero-inner" class="relative z-10 text-center px-6 max-w-4xl mx-auto pt-28 pb-20">
     <div class="inline-flex items-center gap-3 border border-[rgba(212,175,55,.4)] bg-[rgba(212,175,55,.08)] backdrop-blur-sm px-6 py-2.5 mb-9">
       <span class="shimmer"><svg viewBox="0 0 24 24" fill="#D4AF37" style="width:13px;height:13px"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg></span>
@@ -478,6 +484,9 @@ var fine   = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:
 
 // ── Star field ──
 (function(){var s=document.getElementById('stars');if(!s)return;var h='';for(var i=0;i<60;i++){var sz=(Math.sin(i*7.3)*0.5+0.5)*2+1;var x=(i*37)%100;var y=(i*53)%100;var d=2.5+(i%5);h+='<span style="left:'+x+'%;top:'+y+'%;width:'+sz.toFixed(1)+'px;height:'+sz.toFixed(1)+'px;--d:'+d+'s;--delay:'+(i%7)*0.4+'s"></span>';}s.innerHTML=h;})();
+
+// ── Respect reduced-motion: freeze hero video on its poster ──
+if(reduce){var hv=document.querySelector('.hero-video');if(hv){hv.autoplay=false;hv.removeAttribute('autoplay');try{hv.pause();}catch(e){}}}
 
 // ── Marquee: duplicate track for seamless loop ──
 (function(){var mq=document.getElementById('mq');if(mq)mq.innerHTML+=mq.innerHTML;})();
