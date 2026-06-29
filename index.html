@@ -91,6 +91,15 @@ p,li,td,th{line-height:1.85}
 .ph-sq{aspect-ratio:1/1}
 .ph-wide{aspect-ratio:4/3}
 .ph-tall{aspect-ratio:3/4}
+
+/* Generated video showcase cards */
+.vid-card{position:relative;border-radius:10px;overflow:hidden;border:1px solid rgba(212,175,55,.25);background:#0A1645;box-shadow:0 12px 34px rgba(0,0,0,.4);transition:transform .45s cubic-bezier(.34,1.4,.64,1),box-shadow .45s ease,border-color .35s ease}
+.vid-card video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.vid-card:hover{transform:translateY(-7px);border-color:rgba(212,175,55,.65);box-shadow:0 26px 56px rgba(0,0,0,.55),0 0 0 1px rgba(212,175,55,.25)}
+.vid-card .vlabel{position:absolute;left:0;right:0;bottom:0;padding:30px 18px 16px;background:linear-gradient(to top,rgba(4,7,22,.9),transparent);color:#fff;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;pointer-events:none}
+.vid-card .vbadge{position:absolute;top:13px;left:13px;z-index:2;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#060D2E;background:linear-gradient(135deg,#C9A227,#E8C84A);padding:4px 10px;border-radius:3px;font-weight:700;font-family:'Inter',sans-serif}
+.vid-card .vplay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:rgba(212,175,55,.92);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s ease;pointer-events:none}
+.vid-card.paused .vplay{opacity:1}
 @media(max-width:767px){.ph:hover{transform:none}.ph-tag{font-size:1rem}}
 
 /* ============ INTERACTIVITY & ANIMATION LAYER ============ */
@@ -349,7 +358,40 @@ p,li,td,th{line-height:1.85}
       <p class="label-ornament text-[11px] tracking-[.3em] uppercase mb-4" style="color:#D4AF37">The Showcase</p>
       <h2 class="text-3xl md:text-4xl font-semibold text-white mb-5" style="font-family:'Playfair Display',serif">A Glimpse of the Content</h2>
       <div class="gold-bar mx-auto mb-5"></div>
-      <p class="text-white/55 text-sm italic">Placeholders below — sample creative and live work will be added here.</p>
+      <p class="text-white/55 text-sm italic">A taste of the content we create — from generated video to social-ready creative.</p>
+    </div>
+
+    <!-- Generated Video Showcase -->
+    <div class="mb-16">
+      <p class="text-white/80 text-sm tracking-[.18em] uppercase mb-6 flex items-center gap-3" style="font-family:'Inter',sans-serif">
+        <span class="gold-bar"></span> Generated Video Showcase
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div class="vid-card reveal-s d1">
+          <span class="vbadge">AI Video</span>
+          <span class="vplay"><svg width="20" height="20" viewBox="0 0 24 24" fill="#060D2E"><path d="M8 5v14l11-7z"/></svg></span>
+          <video muted loop playsinline autoplay preload="metadata" poster="img/showcase/gen-1.jpg"><source src="img/showcase/gen-1.mp4" type="video/mp4"/></video>
+          <span class="vlabel">Gather Around the Table</span>
+        </div>
+        <div class="vid-card reveal-s d2">
+          <span class="vbadge">AI Video</span>
+          <span class="vplay"><svg width="20" height="20" viewBox="0 0 24 24" fill="#060D2E"><path d="M8 5v14l11-7z"/></svg></span>
+          <video muted loop playsinline autoplay preload="metadata" poster="img/showcase/gen-2.jpg"><source src="img/showcase/gen-2.mp4" type="video/mp4"/></video>
+          <span class="vlabel">A Guest's Welcome</span>
+        </div>
+        <div class="vid-card reveal-s d3">
+          <span class="vbadge">AI Video</span>
+          <span class="vplay"><svg width="20" height="20" viewBox="0 0 24 24" fill="#060D2E"><path d="M8 5v14l11-7z"/></svg></span>
+          <video muted loop playsinline autoplay preload="metadata" poster="img/showcase/gen-3.jpg"><source src="img/showcase/gen-3.mp4" type="video/mp4"/></video>
+          <span class="vlabel">Warm Hospitality</span>
+        </div>
+        <div class="vid-card reveal-s d4">
+          <span class="vbadge">AI Video</span>
+          <span class="vplay"><svg width="20" height="20" viewBox="0 0 24 24" fill="#060D2E"><path d="M8 5v14l11-7z"/></svg></span>
+          <video muted loop playsinline autoplay preload="metadata" poster="img/showcase/gen-4.jpg"><source src="img/showcase/gen-4.mp4" type="video/mp4"/></video>
+          <span class="vlabel">Heritage Ambience</span>
+        </div>
+      </div>
     </div>
 
     <!-- Edited reels / short video -->
@@ -501,6 +543,19 @@ var fine   = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:
 
 // ── Respect reduced-motion: freeze hero video on its poster ──
 if(reduce){var hv=document.querySelector('.hero-video');if(hv){hv.autoplay=false;hv.removeAttribute('autoplay');try{hv.pause();}catch(e){}}}
+
+// ── Showcase videos: autoplay only while in view (saves bandwidth/CPU) ──
+(function(){
+  var cards=[].slice.call(document.querySelectorAll('.vid-card'));
+  if(!cards.length)return;
+  if(reduce){cards.forEach(function(c){var v=c.querySelector('video');if(v){v.autoplay=false;v.removeAttribute('autoplay');try{v.pause();}catch(e){}}c.classList.add('paused');});return;}
+  var vio=new IntersectionObserver(function(es){es.forEach(function(e){
+    var v=e.target.querySelector('video');if(!v)return;
+    if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){e.target.classList.add('paused');});e.target.classList.remove('paused');}
+    else{v.pause();}
+  });},{threshold:.35});
+  cards.forEach(function(c){vio.observe(c);});
+})();
 
 // ── Marquee: duplicate track for seamless loop ──
 (function(){var mq=document.getElementById('mq');if(mq)mq.innerHTML+=mq.innerHTML;})();
