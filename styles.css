@@ -167,9 +167,10 @@ p,li,td,th{line-height:1.85}
 
 /* Card tilt + cursor spotlight (applies to all card types, all pages) */
 .pillar-card,.r-card,.vid-card{transform-style:preserve-3d;will-change:transform}
-.spot{position:absolute;inset:0;z-index:0;border-radius:inherit;opacity:0;transition:opacity .35s ease;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(212,175,55,.18),transparent 60%);pointer-events:none}
+.spot{position:absolute;inset:0;z-index:0;border-radius:inherit;opacity:0;transition:opacity .35s ease;background:radial-gradient(300px circle at var(--mx,50%) var(--my,50%),rgba(212,175,55,.30),transparent 62%);pointer-events:none}
 .pillar-card:hover .spot,.r-card:hover .spot{opacity:1}
 .pillar-card>*:not(.spot),.r-card>*:not(.spot){position:relative;z-index:1}
+.pillar-card:hover,.r-card:hover,.vid-card:hover{box-shadow:0 26px 60px rgba(6,13,46,.30),0 0 0 1px rgba(212,175,55,.55)!important;border-color:rgba(212,175,55,.6)!important}
 .pillar-num{transition:color .4s ease,transform .4s ease}
 .pillar-card:hover .pillar-num{color:rgba(212,175,55,.85);transform:translateZ(30px)}
 
